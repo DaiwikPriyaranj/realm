@@ -6,8 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daiwik</title>
   <link rel="icon" type="image/png" href="salah.jpg" />
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
   <style>
     /* General Reset */
     * {
@@ -16,489 +14,470 @@
       box-sizing: border-box;
     }
 
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      background-color: #fff;
-      color: #333;
+    /* Animated Gradient Background */
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
     }
 
-    /* Dotted Background */
-    body::before {
-      content: "";
+    /* Waving Emoji Animation */
+    @keyframes wave {
+
+      0%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      50% {
+        transform: rotate(15deg);
+      }
+    }
+
+    /* Moonlit Night Sky (Animated Stars) */
+    .stars {
       position: fixed;
       top: 0;
       left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.8);
+      opacity: 0;
+      animation: starAnimation 2s infinite ease-in-out;
+    }
+
+    .star:nth-child(odd) {
+      animation-duration: 3s;
+    }
+
+    .star:nth-child(even) {
+      animation-duration: 4s;
+    }
+
+    @keyframes starAnimation {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+    }
+
+    /* Shooting Stars */
+    .shooting-star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: shootingStarAnimation 2s ease-in-out infinite;
+    }
+
+    @keyframes shootingStarAnimation {
+      0% {
+        left: 100%;
+        top: 0%;
+        opacity: 1;
+        transform: scale(0);
+      }
+
+      100% {
+        left: -20%;
+        top: 100%;
+        opacity: 0;
+        transform: scale(5);
+      }
+    }
+
+    /* Constellations */
+    .constellation {
+      position: absolute;
       width: 100%;
       height: 100%;
-      background: radial-gradient(#000 10%, transparent 11%) 0 0,
-        radial-gradient(#000 10%, transparent 11%) 20px 20px;
-      background-size: 20px 20px;
-      z-index: -1;
+      background: transparent;
+      pointer-events: none;
     }
 
-    /* Styling for links with the underline effect */
-    .underline {
-      color: #FF0000;
-      /* Text color */
-      text-decoration: none;
-      /* Remove default underline */
-      position: relative;
-      /* Enable positioning for the pseudo-element */
-      font-weight: bold;
-      /* Make the text bold for better emphasis */
-      transition: color 0.3s ease-in-out;
-      /* Smooth text color transition */
-    }
-
-    .underline::after {
-      content: "";
+    .constellation .line {
       position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
+      width: 2px;
       height: 2px;
-      background: #FF0000;
-      /* Underline color */
-      transform: scaleX(0);
-      /* Start invisible */
-      transform-origin: right;
-      /* Start animation from the right */
-      transition: transform 0.3s ease-in-out;
-      /* Smooth scale animation */
+      background-color: rgba(255, 255, 255, 0.6);
+      animation: lineAnimation 5s infinite;
     }
 
-    .underline:hover {
-      color: #d73a00;
-      /* Darker shade when hovered */
+    @keyframes lineAnimation {
+      0% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.6;
+      }
     }
 
-    .underline:hover::after {
-      transform: scaleX(1);
-      /* Expand underline fully */
-      transform-origin: left;
-      /* Animate from left to right */
-    }
-
-    header {
-      text-align: center;
-      padding: 60px 20px;
-      color: #fff;
-      background: rgba(0, 0, 0, 0.85);
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(45deg, #0A1128, #1C3D5A, #27496D);
+      background-size: 300% 300%;
+      animation: gradientAnimation 10s ease infinite;
+      color: #E5E7EB;
+      /* Moonlight silver */
+      overflow-x: hidden;
       position: relative;
     }
 
-    header h1 {
-      font-size: 3.5rem;
-      margin-bottom: 10px;
-      text-shadow: 3px 3px 10px #000;
+    /* Navigation Bar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #1C3D5A;
+      /* Dark blue with a hint of gray */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    header h1 span {
-      color: #FF0000;
-      /* Change this to your preferred color */
+    .navbar .nav-logo {
+      font-size: 1.8rem;
       font-weight: bold;
-      /* Optional: make the name bold */
-      text-shadow: 2px 2px 5px #000;
-      /* Optional: add a shadow effect */
-    }
-
-    header .tagline {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-
-    header .btn {
-      padding: 10px 25px;
-      background: #fff;
-      color: #000;
+      color: #E5E7EB;
+      /* Moonlight silver */
       text-decoration: none;
-      font-weight: bold;
-      border: 2px solid #000;
-      border-radius: 5px;
-      transition: all 0.3s ease-in-out;
     }
 
-    header .btn:hover {
-      background: #000;
-      color: #fff;
+    .navbar .nav-logo span {
+      display: inline-block;
+      animation: wave 1.5s ease-in-out infinite;
     }
 
-    .profile-picture {
+    .navbar .profile-link {
+      display: inline-block;
+      border-radius: 50%;
+      overflow: hidden;
+      width: 50px;
+      height: 50px;
+      border: 2px solid #E5E7EB;
+    }
+
+    .navbar .profile-pic {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Profile Card Styling */
+    .profile-card {
+      max-width: 600px;
+      margin: 40px auto;
+      background: linear-gradient(135deg, #1C3D5A, #27496D);
+      /* Gradient of deep blues */
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .profile-card .profile-picture {
       width: 150px;
       height: 150px;
       border-radius: 50%;
       overflow: hidden;
       margin: 0 auto 20px;
-      border: 5px solid #fff;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      /* This centers the profile picture horizontally */
+      border: 5px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: spin 3s linear infinite;
     }
 
-    .profile-picture img {
+    .profile-card .profile-picture img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .profile-card h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #F4F1BB;
+      /* Soft pale moon glow */
+    }
+
+    .profile-card .details,
+    .profile-card .tagline {
+      color: #E5E7EB;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .profile-card .btn {
+      padding: 10px 25px;
+      background: #F4F1BB;
+      /* Soft pale moon glow */
+      color: #1C3D5A;
+      /* Dark blue */
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .profile-card .btn:hover {
+      background: #E5E7EB;
+      /* Moonlight silver */
+      color: #27496D;
+    }
+
+    /* Sections */
     .section {
-      padding: 40px 20px;
+      padding: 50px;
       text-align: center;
-      background: rgba(255, 255, 255, 0.9);
-      margin: 20px;
+      background: #162A4F;
+      /* Midnight blue */
       border-radius: 10px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      margin: 20px auto;
+      max-width: 1200px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
     }
 
     .section h2 {
-      font-size: 2rem;
-      color: #000;
+      color: #F4F1BB;
+      /* Pale moon glow */
       margin-bottom: 20px;
     }
 
     .skills-list {
       list-style: none;
-      padding: 0;
-      display: inline-flex;
-      gap: 10px;
-      flex-wrap: wrap;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      color: #F4F1BB;
+      font-size: 1.2rem;
     }
 
-    .skills-list li {
-      background: #000;
-      color: #fff;
+    /* Socials */
+    .socials-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #F4F1BB;
+      /* Pale moon glow */
+      background: #1C3D5A;
+      /* Deep blue */
       padding: 10px 20px;
-      border-radius: 5px;
-      font-weight: bold;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      transition: transform 0.3s, background-color 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    .social-link:hover {
+      transform: translateY(-5px);
+      background: #27496D;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .social-link span {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    /* Roadmap Section */
+    .roadmap-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 20px;
       margin-top: 20px;
     }
 
-    .project-card {
-      background: #000;
-      color: #fff;
+    .roadmap-item {
+      background: #27496D;
+      /* Moonlit deep blue */
       padding: 20px;
-      border: 2px solid #fff;
       border-radius: 10px;
-      transition: transform 0.3s, box-shadow 0.3s;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      text-align: left;
+      transition: transform 0.3s ease-in-out;
     }
 
-    .project-card:hover {
-      transform: scale(1.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    .roadmap-item:hover {
+      transform: translateY(-5px);
     }
 
-    footer {
-      text-align: center;
-      padding: 20px 0;
-      background: #000;
-      color: #fff;
-      margin-top: 20px;
-    }
-
-    .navbar {
-      background: #000;
-      color: #fff;
-      padding: 10px 20px;
-      position: sticky;
-      /* Sticks to the top when scrolling */
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .nav-logo {
+    .roadmap-item h3 {
       font-size: 1.5rem;
-      font-weight: bold;
-      text-decoration: none;
-      color: #FF0000;
+      color: #F4F1BB;
+      /* Pale moon glow */
     }
 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 15px;
+    .roadmap-item p {
+      font-size: 1.1rem;
+      color: #E5E7EB;
+      /* Moonlight silver */
     }
 
-    .nav-links li a {
-      text-decoration: none;
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-
-    .nav-links li a:hover {
-      background: #FF0000;
-      color: #000;
-    }
-
-    .profile-link {
-      display: flex;
+    .footer {
       align-items: center;
-      justify-content: center;
-      text-decoration: none;
-    }
-
-    .profile-pic {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 2px solid #FF0000;
-      transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
-    }
-
-    .profile-pic:hover {
-      transform: scale(1.1);
-      border-color: #fff;
-    }
-
-    .project-card img.project-image {
-      width: 100px;
-      /* Adjust as needed */
-      height: 100px;
-      /* Adjust as needed */
-      border-radius: 50%;
-      object-fit: cover;
-      /* Ensures the image covers the area without distortion */
-    }
-
-    /* General Styles */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #fff, #555);
-      color: #fff;
-      overflow-x: hidden;
-    }
-
-    .section {
-      padding: 50px;
       text-align: center;
-      background: rgba(0, 0, 0, 0.8);
-      /* Consistent background */
-      border-radius: 10px;
-      margin: 20px auto;
-      max-width: 1200px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    }
-
-    h1,
-    h2 {
-      margin-bottom: 20px;
-      color: #fff;
-    }
-
-    /* Glassmorphism Effect for the Header Section */
-    /* Glassmorphism Effect for the Header Section */
-    header .container {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 40px;
-      color: #fff;
-      text-align: center;
-      animation: fadeIn 2s ease-in-out, moveUp 2s ease-in-out, glow 1.5s infinite alternate;
-      max-width: 800px;
-      margin: 40px auto;
-    }
-
-    /* Glowing Animation (White Glow) */
-    @keyframes glow {
-      0% {
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 255, 255, 0.7);
-      }
-
-      50% {
-        box-shadow: 0 4px 50px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8);
-      }
-
-      100% {
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 255, 255, 0.7);
-      }
-    }
-
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-
-      100% {
-        opacity: 1;
-      }
-    }
-
-    @keyframes moveUp {
-      0% {
-        transform: translateY(20px);
-      }
-
-      100% {
-        transform: translateY(0);
-      }
-    }
-
-
-
-    header .profile-picture img {
-      border-radius: 50%;
-      width: 150px;
-      height: 150px;
-      border: 5px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-    }
-
-    header h1 {
-      font-size: 2rem;
-      margin: 20px 0;
-    }
-
-    header .tagline {
-      font-size: 1.2rem;
-      margin: 20px 0;
-      color: #ddd;
-    }
-
-    header .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #000;
-      color: #fff;
-      border: 1px solid #fff;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 16px;
-      margin-top: 20px;
-      transition: background 0.3s ease-in-out;
-    }
-
-    header .btn:hover {
-      background: #fff;
-      color: #000;
-    }
-
-    a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #000;
-      color: #fff;
-      border: 1px solid #fff;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 16px;
-      margin-top: 20px;
-      transition: background 0.3s ease-in-out;
-    }
-
-    .btn:hover {
-      background: #fff;
-      color: #000;
+      padding: 20px;
+      background-color: #1C3D5A;
+      color: #E5E7EB;
     }
   </style>
 </head>
 
 <body>
+  <!-- Starry Background -->
+  <div class="stars">
+    <!-- Multiple Star elements with varying sizes -->
+    <div class="star" style="top: 10%; left: 10%; width: 2px; height: 2px; animation-duration: 3s;"></div>
+    <div class="star" style="top: 20%; left: 30%; width: 4px; height: 4px; animation-duration: 2s;"></div>
+    <div class="star" style="top: 30%; left: 50%; width: 3px; height: 3px; animation-duration: 5s;"></div>
+    <div class="star" style="top: 50%; left: 70%; width: 2px; height: 2px; animation-duration: 4s;"></div>
+    <div class="star" style="top: 60%; left: 80%; width: 5px; height: 5px; animation-duration: 3s;"></div>
+    <div class="star" style="top: 80%; left: 90%; width: 3px; height: 3px; animation-duration: 6s;"></div>
+    <div class="star" style="top: 40%; left: 40%; width: 2px; height: 2px; animation-duration: 2s;"></div>
+    <div class="star" style="top: 20%; left: 90%; width: 4px; height: 4px; animation-duration: 5s;"></div>
+    <div class="star" style="top: 60%; left: 10%; width: 3px; height: 3px; animation-duration: 4s;"></div>
+
+    <!-- Shooting Stars -->
+    <div class="shooting-star" style="top: 30%; left: 60%;"></div>
+    <div class="shooting-star" style="top: 50%; left: 20%;"></div>
+    <div class="shooting-star" style="top: 70%; left: 80%;"></div>
+  </div>
+
   <nav class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="nav-logo">Daiwik! 👋</a>
-      <ul class="nav-links"></ul>
-      <a href="https://github.com/DaiwikPriyaranj" class="profile-link">
-        <img src="pfp.png" alt="Profile Picture" class="profile-pic">
-      </a>
-    </div>
+    <a href="index.html" class="nav-logo">Daiwik! <span>👋</span></a>
+    <a href="https://github.com/DaiwikPriyaranj" class="profile-link">
+      <img src="pfp.png" alt="Profile Picture" class="profile-pic">
+    </a>
   </nav>
 
   <header>
-    <div class="container">
+    <div class="profile-card">
       <div class="profile-picture">
         <img src="pfp.png" alt="Profile Picture">
       </div>
-      <h1>Hello, I'm <span id="name">Daiwik</span>!</h1>
-      <p class="tagline">
-        My Proficiencies include
-        <a href="https://www.python.org" class="underline">Python</a>,
-        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" class="underline">HTML</a>,
-        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" class="underline">CSS</a>,
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="underline">JavaScript</a>.
-      </p>
-      <a href="#about" class="btn">Enjoy!</a>
+      <h1>Daiwik Priyaranj</h1>
+      <p class="details">Location: India<br>Football Position: Striker & Left Winger<br>Favorite Team: Liverpool FC</p>
+      <p class="tagline">"Code, Music, Football, and Math fuel my passion for life!"</p>
+      <button class="btn">Explore More</button>
     </div>
   </header>
 
   <main>
     <section id="about" class="section">
-      <h2 style="color: white;">About Me</h2>
-      <p>
-        "I'm a passionate coder from India with a love for <b> <u>Music, Football, and Maths</b></u>. Along with coding,
-        I enjoy exploring these interests in my free time." <br> I am a wild <u><b>Liverpool Fan</b></u> as you can see
-        from my
-        profile pic. I also play for <b><u>Edge FC & Phantom FC</u></b> as a Striker & Left Winger!
-      </p>
+      <h2>About Me</h2>
+      <p>I'm a passionate coder from India with a love for <b>Music, Football, and Maths</b>. A wild <b>Liverpool
+          Fan</b>, I play for <b>Edge FC & Phantom FC</b>!</p>
     </section>
 
-    <section id="skills" class="section">
-      <h2 style="color: white;">Socials</h2>
-      <ul class="skills-list">
-        <li>Spotify</li>
-        <li>Coding</li>
-        <li>Cricket</li>
-        <li>Lol</li>
-      </ul>
+    <section id="socials" class="section">
+      <h2>Socials</h2>
+      <div class="socials-container">
+        <a href="https://open.spotify.com/user/31lkmxgyxucijnk5qlq5z3yrxvye" class="social-link">
+          <img src="spotify.png" alt="Spotify" class="social-icon">
+          <span>Spotify</span>
+        </a>
+        <a href="https://www.pinterest.com/daiwikpriyaranj" class="social-link">
+          <img src="pinterest.png" alt="Pinterest" class="social-icon">
+          <span>Pinterest</span>
+        </a>
+        <a href="https://github.com/DaiwikPriyaranj" class="social-link">
+          <img src="github.png" alt="GitHub" class="social-icon">
+          <span>GitHub</span>
+        </a>
+      </div>
     </section>
 
-    <section id="projects" class="section">
-      <h2 style="color: white;">Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <h3> Graphics Designing - Private </h3>
-          <img src="graphics-1.jpg" alt="Field Fury Image" class="project-image">
-          <p>I create custom designs based on the client's needs, whether it's a logo, social media graphic, or website
-            layout. I use tools like Photoshop or Illustrator to craft the designs and then share them with the client
-            for feedback. After making any necessary revisions, I deliver the final files in the required formats. <br>
-            <b><u> Future Plans </u></b> <br>
-            I plan on expanding my skills in the field of graphic designing by working on more projects along with a few
-            designers & host a small company to the public on a larger scale.
-
-          </p>
-        </div>
-        <div class="project-card">
-          <h3>Website For Club Fixtures</h3>
-          <img src="pfp.png" alt="Field Fury Image" class="project-image">
-          <p>
-            Yapppppppp
-          </p>
-        </div>
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="section roadmap-container">
+      <h2>My Roadmap</h2>
+      <div class="roadmap-item">
+        <h3>2024 - Learn More Advanced Coding</h3>
+        <p>I plan to dive deeper into backend development and explore machine learning.</p>
+      </div>
+      <div class="roadmap-item">
+        <h3>2025 - Launch My First Startup</h3>
+        <p>Turning my coding skills into an entrepreneurial venture!</p>
+      </div>
+      <div class="roadmap-item">
+        <h3>2026 - Publish a Book on Coding</h3>
+        <p>Writing a book that helps others on their coding journey.</p>
       </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; Daiwik Priyaranj. Looking for Opportunities</p>
+  <footer class="footer">
+    <p>Made with ❤️ by Daiwik Priyaranj but sorry All Rights Are stll Reserved</p>
   </footer>
 </body>
 
